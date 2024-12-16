@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BlogMvcApp.Models.Blog>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Img)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Verified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Homepage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th style="width:250px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddingDate)
+            </td>
+            <td>
+                @if(item.Verified)
+                {
+                    <label class="col-form-label bg-success">Verified</label>    
+                }
+                else
+                {
+                    <label class="col-form-label bg-danger">Waiting Verification</label>
+                }
+            </td>
+            <td>
+                    @if (item.Homepage)
+                    {
+                        <label class="col-form-label bg-success">Homepage</label>
+                    }
+                    else
+                    {
+                        <label class="col-form-label bg-danger">Not Homepage</label>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+            </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.BlogId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.BlogId" class="btn btn-primary">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.BlogId" class="btn btn-primary">Edit</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
