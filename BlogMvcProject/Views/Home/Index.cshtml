@@ -6,7 +6,7 @@
 <h2>Blog List</h2>
 
 <div class="row">
-    <div class="col-md-8">
+    
         @foreach (var blog in Model)
         {
             <div class="blogitem">
@@ -18,7 +18,7 @@
                     @blog.AddingDate
                 </p>
                 <hr />
-                <img class="img-responsive" src="htt://placehold.it/900x300" alt=" " />
+                <img class="img-responsive" src="http://placehold.it/800x300" alt=" " />
                 <hr />
                 <p>
                     @blog.Description
@@ -26,16 +26,30 @@
                 @Html.ActionLink("More...","Details","Blog",new{id=@blog.BlogId},new {@class="btn btn-primary"})
             </div>
         }
-    </div>
-    <div class="col-md-4">
-        <h4>Blog Search</h4>
-        <div class="input-group">
-            <input type="text" class="form-control" />
-            <span class="input-group-btn">
+  
+@section RightColon
+{
+        @using (Html.BeginForm("List","Category",FormMethod.Get))
+        {
+            <div class="well">
+                <h4>Blog Search</h4>
+                <hr />
+                <div class="input-group">
+                    @Html.TextBox("Q",null,new {@class="form-control"})
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">
+                            
+                        </button>
+                    </span>
+                </div>
+            </div>
+        }
 
-            </span>
-        </div>
-    </div>
+        <hr/>
+
+        @await Component.InvokeAsync("CategoryList")
+}
+       
 </div>
 
 

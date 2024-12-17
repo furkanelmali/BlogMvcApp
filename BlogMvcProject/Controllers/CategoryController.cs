@@ -6,12 +6,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogMvcApp.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace BlogMvcApp.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly BlogContext _context;
+
+        public ActionResult List(int? id,string q)
+        {
+            var blogs = _context.Blogs
+               .Where(i => i.Verified == true && i.Homepage == true)
+               .Select(i => new BlogModel()
+               {
+                   CategoryId = i.CategoryId,
+                   BlogId = i.BlogId,
+                   Title = i.Title.Length > 100 ? i.Title.Substring(0 - 100) + "..." : i.Title,
+                   Description = i.Description,
+                   AddingDate = i.AddingDate,
+                   Homepage = i.Homepage,
+                   Verified = i.Verified,
+                   Img = i.Img,
+               }).AsQueryable();
+
+            if (string.IsNullOrEmpty(q) == false)
+            {
+                blogs = blogs.Where(i => i.Title.Contains(q) || i.Description.Contains(q));
+            }
+
+            if (id != null) 
+            {
+                blogs = blogs.Where(i => i.CategoryId == id);
+            }
+
+            return View(blogs.ToList());
+        }
 
         public CategoryController(BlogContext context)
         {

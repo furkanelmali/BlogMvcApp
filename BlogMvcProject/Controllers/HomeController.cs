@@ -20,18 +20,19 @@ namespace BlogMvcProject.Controllers
         public IActionResult Index()
         {
             var blogs = _context.Blogs
-                .Select(i => new BlogModel()
-                {
-                    CategoryId = i.CategoryId,
-                    BlogId = i.BlogId,
-                    Title = i.Title.Length > 100 ? i.Title.Substring(0 - 100) + "..." : i.Title,
-                    Description = i.Description,
-                    AddingDate = i.AddingDate,
-                    Homepage = i.Homepage,
-                    Verified =i.Verified,
-                    Img = i.Img,
-                })
-                .Where(i=>i.Verified == true && i.Homepage == true);
+               .Where(i => i.Verified == true && i.Homepage == true)
+               .Select(i => new BlogModel()
+               {
+                   CategoryId = i.CategoryId,
+                   BlogId = i.BlogId,
+                   Title = i.Title.Length > 100 ? i.Title.Substring(0 - 100) + "..." : i.Title,
+                   Description = i.Description,
+                   AddingDate = i.AddingDate,
+                   Homepage = i.Homepage,
+                   Verified = i.Verified,
+                   Img = i.Img,
+               });
+
             return View(blogs.ToList());
         }
 

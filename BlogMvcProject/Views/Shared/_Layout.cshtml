@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li>
+                            @Html.ActionLink("Blog", "List", "Category")
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -32,11 +35,22 @@
     </header>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <main role="main" class="pb-3">
+            @if(IsSectionDefined("RightColon"))
+            {
+                <div class="col-md-8">
                     @RenderBody()
-                </main>
-            </div>
+                </div>
+                <div class="col-md-4">
+                   @RenderSection("RightColon")
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                        @RenderBody()
+                </div>
+            }
+            
         </div>
     </div>
 

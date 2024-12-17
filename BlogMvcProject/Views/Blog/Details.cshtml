@@ -10,7 +10,7 @@
     <h4>Blog</h4>
     <hr />
     <dl class="row">
-        <div class="col-md-8">
+        
            <h1>@Model.Title</h1>
             <hr/>
             <p>
@@ -18,7 +18,7 @@
                 @Model.AddingDate
             </p>
             <hr/>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="" />
+            <img class="img-responsive" src="http://placehold.it/800x300" alt="" />
             <hr/>
             <blockquote>
                 <p>@Model.Description</p>
@@ -39,19 +39,22 @@
                 </div>
             </div>
             <hr />
-        </div>
-        <div class="col-md-4">
-            <h4>Blog Search</h4>
-            <div class="input-group">
-                <input type="text" class="form-control" />
-                <span class="input-group-btn">
-
-                </span>
-            </div>
-        </div>
+        
+        
     </dl>
 </div>
+@section RightColon
+{
+    <h4>Blog Search</h4>
+    <div class="input-group">
+        <input type="text" class="form-control" />
+        <span class="input-group-btn">
+
+        </span>
+    </div>
+}
 <div>
+
     <a asp-action="Edit" asp-route-id="@Model?.BlogId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
